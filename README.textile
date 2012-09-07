@@ -1,0 +1,31 @@
+h1. JQuery.fn.wrapSvg
+
+Inspired by http://stackoverflow.com/questions/3294553/jquery-selector-svg-incompatible
+
+h2. Why?
+
+SVG DOM elements have a different interface than other DOM elements, therefore rendering much of jQuery's functionality useless against it
+
+The snippet pasted in the referenced StackOverflow link did not work with Firefox 15, as it threw an error when accessing an SVG object property through prototypal inheritance, hence the get / set accessor defined for every vanilla SVG property.
+
+The wrapper objects themselves only need be created once. They are reused by creating a new object, with the reference @_svgEl@ defined, and @__proto__@ set to the wrapper object.
+
+The wrapper wraps each SVG DOM element in a jQuery selection, causing them to emulate an HTML DOM interface, thereby rendering many jQuery methods such as addClass, hide, etc. functional again.
+
+A study regarding which jQuery methods work with the wrapper, and which ones still don't, has not been performed.
+
+Requires a modern browser with JavaScript 1.8.5. Should work with the following browsers:
+
+* Firefox 4+
+* Internet Explorer 9+
+* Safari 5+
+* Chrome 5+
+
+h2. Usage:
+
+  @$("svg rect").wrapSvg().addClass("selected")@
+
+h2. Who
+
+* Original idea by Aleksandar Totic
+* Improvements by Tim Harper, Berton Earnshaw, with "Red Brain Labs":http://redbrainlabs.com/
